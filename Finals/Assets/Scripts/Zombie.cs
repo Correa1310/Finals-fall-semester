@@ -7,6 +7,7 @@ public class Zombie : MonoBehaviour
     public float speed = 10f;
 
     private Rigidbody _zombieRb;
+    private GameObject _player;
     // Start is called before the first frame update
     void Start()
     {
