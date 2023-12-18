@@ -5,16 +5,15 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public float areaRange = 20f;
-
     public int coinAmount = 10;
-
     public GameObject collectibleObject;
+    public GameObject ememyObject;
 
-    public GameObject enemyObject;
     // Start is called before the first frame update
     void Start()
     {
-        
+        SpawnRandomEnemy();
+        SpawnCollectibleObject();
     }
 
     // Update is called once per frame
@@ -22,26 +21,45 @@ public class SpawnManager : MonoBehaviour
     {
         
     }
+
     void SpawnRandomEnemy()
     {
-        Instantiate(enemyObject, new Vector3(0, 1, 5), enemyObject.transform.rotation);
+        Instantiate(ememyObject, new Vector3(0, 1, 5), ememyObject.transform.rotation);
     }
 
-    void SpawnCollectibleObject()
-   
-   {
-    for(int i = 0; i < coinAmount; i++)
+     public void SpawnCollectibleObject()
     {
-          Instantiate(collectibleObject, CreateRandomSpawnPosition(), collectibleObject.transform.rotation);
+        for(int i = 0; i < coinAmount; i++)
+        {
+            Instantiate(collectibleObject, CreateRandomSpawnPosition(), collectibleObject.transform.rotation);
+        }  
+        coinAmount = 1;
     }
-  }
 
-  Vector3 CreateRandomSpawnPosition()
-  {
-    float xValue = Random.Range(-areaRange, areaRange);
-    float zValue = Random.Range(-areaRange, areaRange);
-    Vector3 randomPosition = new Vector3(xValue, 1f, zValue);
+    Vector3 CreateRandomSpawnPosition()
+    {
+        float xValue = Random.Range(-areaRange, areaRange);
+        float zValue = Random.Range(-areaRange, areaRange);
+        Vector3 randomPosition = new Vector3(xValue, 1f, zValue);
 
-    return randomPosition;
-  }
+        return randomPosition;
+    }
+
+    
+      IEnumerator CreateRandomAmountOfEnemies()
+    {
+        while(true)
+        {
+            int amountOfTime = Random.Range(1, 8);
+            yield return new WaitForSeconds(amountOfTime);
+
+            int amountOfEnemies = Random.Range(1, 3);
+            for(int i = 0; i < amountOfEnemies; i++)
+            {
+                SpawnRandomEnemy();
+            }
+        }
+    }
+    
+
 }

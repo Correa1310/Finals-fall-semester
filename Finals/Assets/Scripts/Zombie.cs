@@ -8,6 +8,7 @@ public class Zombie : MonoBehaviour
 
     private Rigidbody _zombieRb;
     private GameObject _player;
+
     // Start is called before the first frame update
     void Start()
     {

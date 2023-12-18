@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-          Debug.Log("Player collected a coin");
-          Destroy(this.gameObject);
+            GameObject.Find("Canvas").GetComponent<UIManager>().UpdateCoinCount();
+            Debug.Log("Player collected a coin.");
+            Destroy(this.gameObject, 0.2f);
         }
     }
-  
-   
 }
